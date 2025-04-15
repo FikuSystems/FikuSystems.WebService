@@ -1,0 +1,213 @@
+/* General Reset & Styling */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 32;
+  font-family: 'Segoe UI SemiBold', sans-serif;
+  color: #fff;
+}
+h2 {
+  font-size: 16;
+  font-family: 'Segoe UI SemiBold', sans-serif;
+  color: #fff;
+}
+
+
+body, html {
+  font-size: 9;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: linear-gradient(to bottom, #009f41, #005521);
+  padding: 20px;
+  color: #ffffff;
+  flex-shrink: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 100;
+}
+
+/* When shown */
+.sidebar.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Other styles */
+.sidebar h2 {
+  margin-bottom: 30px;
+  font-size: 1.5em;
+  color: #ffc900;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin-bottom: 15px;
+}
+
+.sidebar a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.sidebar a:hover {
+  color: #ffc900;
+}
+
+.sidebar_hidden {
+  display: inline-block;
+  background: linear-gradient(to bottom, #009f41, #005521);
+  padding: 4pt;
+  flex-shrink: 0;
+  width: 26px;
+  color: white;
+  cursor: pointer;
+  position: fixed;
+  top: 6px;
+  left: 6px;
+  z-index: 101;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  
+}
+
+
+/* Main content */
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+  background: linear-gradient(to bottom, #00ff0025, #2fff003d);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Row of two boxes */
+.row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+/* Box styles */
+.box {
+  flex: 1 1 40%;
+  min-width: 30pc;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .box {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+}
+
+.box ul {
+  padding-left: 2em;
+}
+
+.box a {
+  display: inline-block; /* Ensures it keeps its size */
+  width: 250px; /* Fixed width */
+  background: linear-gradient(180deg, #008ac0, #004ea7);
+  color: #fff;
+  padding: 0.6em 1.2em;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 15px;
+  flex-shrink: 0; /* Prevents shrinking */
+}
+
+
+/* Box colors */
+
+.title-box {
+  background: linear-gradient(180deg, #0097bd, #00416d);
+}
+
+.green-box {
+  background: linear-gradient(180deg, #00bd4f, #006d2a);
+}
+
+.yellow-box {
+  background: linear-gradient(180deg, #ffca00, #a07400);
+  color: #fff;
+}
+
+.link-box{
+  background: linear-gradient(180deg, rgb(65, 65, 65), #222222);
+  color: #fff;
+  display: flex;
+  flex-direction: column; /* make content stack vertically */
+  padding: 20px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* adds space between buttons */
+  padding: 20px;
+}
+
+.links a {
+  flex: 1 1 auto; /* allows flexible sizing */
+  min-width: 150px; /* prevents links from getting too small */
+  background: linear-gradient(180deg, #008ac0, #004ea7);
+  color: #fff;
+  padding: 0.6em 1.2em;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+
+/* Image Box */
+.image-box {
+  background: linear-gradient(180deg, #00bd4f, #006f2b);
+  text-align: center;
+}
+
+.rounded-image {
+  max-width: 100%;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  width: 250px;
+  height:200px;
+}
