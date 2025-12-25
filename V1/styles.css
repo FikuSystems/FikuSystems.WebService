@@ -1,0 +1,208 @@
+body{
+    padding:0px;
+    margin:0px;
+    height: 100vh;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 182, 0, 0.3));
+}
+.topBar {
+    overflow: hidden;
+    background-image: linear-gradient(rgba(112, 48, 160, 1),rgba(56, 24, 80, 1));
+    height: 70px;
+}
+.topBar h1 {
+    padding-top: 9px;
+    padding-left: 14px;
+    margin: 0px;
+    font-family: 'Segoe UI Semibold',Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 18pt;
+}
+.topBar h2 {
+    padding-left: 14px;
+    margin: 0px;
+    font-family: 'Segoe UI',Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 9pt;
+}
+.navBar {
+    overflow: hidden;
+    background-image: linear-gradient(rgba(64, 64, 64, 1),rgba(33, 33, 33, 1));
+    height: 31px;
+}
+.navBar a {
+    display: inline-block;
+    margin-left: 14px;
+    margin-top: 3px;
+    font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14pt;
+    text-decoration: none;
+    background-image: linear-gradient(rgba(112, 48, 160, 1),rgba(56, 24, 80, 1));
+    text-align: center;
+    padding: 0px 20px;
+    color: white;
+    border-radius: 5px;
+}   
+.navBar li{
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+}  
+.navBar ul{
+    list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}   
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+li a:hover, .dropdown:hover .dropbtn {
+    background-color:red;    
+}
+  
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    margin-left: 15px;
+    border-radius: 5px;
+    display: none;
+    position: absolute;
+    background-image: linear-gradient(#7F7F7F, #484848);
+    width: 224px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+  
+.dropdown-content a {
+    color: white;
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-top: 4px;
+    font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 12pt;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+#dropdownTitle {
+    color: white;
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-top: 4px;
+    padding-top: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    display: inline-block;
+    font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14pt;
+    text-decoration: none;
+    background-image: linear-gradient(rgba(112, 48, 160, 1),rgba(56, 24, 80, 1));
+    text-align: center;
+    width: 216px;
+    height: 30px;
+    color: white;
+    border-radius: 5px;
+}   
+.dropdown-content span {
+    color: white;
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-top: 4px;
+    padding-top: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    display: inline-block;
+    font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12pt;
+    text-decoration: none;
+    background-image: linear-gradient(rgba(112, 48, 160, 1),rgba(56, 24, 80, 1));
+    text-align: center;
+    width: 216px;
+    height: 28px;
+    color: white;
+    border-radius: 5px;
+}   
+  
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.contentTitle
+{
+    display: block;
+    background-image: linear-gradient(rgba(112, 48, 160, 1),rgba(56, 24, 80, 1));
+    font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16pt;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    margin: 20px auto;
+    border-radius: 5px;
+    max-width: 50%;
+}
+.contentSubTitle
+{
+    display: block;
+    background-color: transparent;
+    font-family: 'Segoe UI Semilight', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16pt;
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    margin: 20px auto;
+    border-radius: 5px;
+    max-width: 50%;
+}
+.contentText
+{
+    display: block;
+    background-color: transparent;
+    font-family: 'Segoe UI Semilight', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    margin: 5px auto;
+    border-radius: 5px;
+    max-width: 80%;
+}
+
+.flower
+{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 512px;
+    height: 512px;
+    opacity: 0.2;
+}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-image: linear-gradient(rgba(230, 230, 230, 1),rgba(185, 185, 185, 1));
+    font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    text-align: center;
+  }
+.githubLogo {
+    margin-bottom: 0px;
+    width: 15px;
+    height: 15px;
+    padding: 0px;
+}
