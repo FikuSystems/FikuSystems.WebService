@@ -1,2 +1,46 @@
-<h1>New website here but its not done lol</h1>
-<title>FikuSystems</title>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FikuSystems</title>
+
+    <!-- Paths must be absolute from root -->
+    <link rel="icon" type="image/x-icon" href="/V2/favicon.ico">
+    <link rel="stylesheet" href="/V2/style.css">
+</head>
+
+<body>
+    <main>
+    <nav>
+        <div class="logo" onclick="navigateTo('/V2/')">FikuSystems</div>
+        <ul>
+            <li>
+                <a href="/V2/about" onclick="event.preventDefault(); navigateTo('/V2/about');">
+                    About
+                </a>
+            </li>
+            <li>
+                <a href="/V2/projects" onclick="event.preventDefault(); navigateTo('/V2/projects');">
+                    Projects
+                </a>
+            </li>
+            <li>
+                <a href="/V2/socials" onclick="event.preventDefault(); navigateTo('/V2/socials');">
+                    Socials
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="content"></div>
+
+    <script src="/V2/app.js"></script>
+</main>
+    <footer>
+        <p>© 2024-2026 FikuSystems. All rights reserved. <small>Fiku BasicSPA v1.0</small></p>
+    </footer>
+    
+</body>
+
+</html>
