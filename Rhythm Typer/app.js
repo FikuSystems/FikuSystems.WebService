@@ -125,19 +125,32 @@ function navigateTo(path) {
 
 // Load page based on URL or query parameter
 function loadFromPath() {
-    // Ensure we decode the URI to handle the %20 (spaces) correctly
-    const path = decodeURIComponent(window.location.pathname);
+    // This converts "%20" back to a space so it matches your keys
+    const rawPath = window.location.pathname;
+    const path = decodeURIComponent(rawPath);
     
-    // Check if path ends without a slash and add it if it's the base directory
-    const normalizedPath = path.endsWith('/') ? path : path + '/';
+    const params = new URLSearchParams(window.location.search);
+    const pageParam = params.get('page');
 
-    if (routes[path]) {
+    if (pageParam) {
+        const routePath = 'Rhythm Typer/' + pageParam;
+        if (routes[routePath]) {
+            loadContent(routes[routePath]);
+            history.replaceState(null, '', '/' + routePath);
+            return;
+        }
+    }
+
+    // Clean up path: remove leading slash for matching
+    const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+    
+    if (routes[cleanPath]) {
+        loadContent(routes[cleanPath]);
+    } else if (routes[path]) {
         loadContent(routes[path]);
-    } else if (routes[normalizedPath]) {
-        loadContent(routes[normalizedPath]);
     } else {
-        // Fallback for the root of Rhythm Typer
-        loadContent('/Rhythm Typer/home.html');
+        // Fallback: If nothing matches, just load home.html
+        loadContent('home.html');
     }
 }
 
