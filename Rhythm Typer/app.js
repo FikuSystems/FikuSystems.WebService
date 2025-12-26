@@ -3,27 +3,26 @@ const defaultAnimDuration = 300;
 
 
 const routes = {
-    'Rhythm Typer/': 'Rhythm Typer/home.html',
-    'Rhythm Typer/socials': 'Rhythm Typer/socials.html'
+    'Rhythm Typer/': 'home.html', // If app.js is inside the Rhythm Typer folder
+    'Rhythm Typer/socials': 'socials.html'
 };
 
 // Load HTML into #content
 function loadContent(page) {
+    // Use a path relative to the site root if possible, or adjust based on folder
     fetch(page)
         .then(res => {
-            if (!res.ok) throw new Error('Page not found');
+            if (!res.ok) throw new Error(`Could not find ${page}`);
             return res.text();
         })
         .then(html => {
             const contentDiv = document.getElementById('content');
             contentDiv.innerHTML = html;
-            contentDiv.style.display = 'block';
-            contentDiv.style.minHeight = 'auto';
+            // ... rest of your logic
         })
         .catch(err => {
             console.error(err);
-            document.getElementById('content').innerHTML =
-                '<h1>Error loading page.</h1>';
+            document.getElementById('content').innerHTML = '<h1>Error loading page.</h1>';
         });
 }
 
@@ -128,28 +127,30 @@ function navigateTo(path) {
 
 // Load page based on URL or query parameter
 function loadFromPath() {
+    // decodeURIComponent converts %20 back into a space so it matches your keys
+    const path = decodeURIComponent(window.location.pathname);
     const params = new URLSearchParams(window.location.search);
     const pageParam = params.get('page');
-    const path = window.location.pathname;
 
-    // If coming from a folder redirect with ?page= parameter
     if (pageParam) {
         const routePath = 'Rhythm Typer/' + pageParam;
         if (routes[routePath]) {
             loadContent(routes[routePath]);
-            // Clean up the URL by removing the query parameter
             history.replaceState(null, '', '/' + routePath);
+            return;
         }
+    }
+
+    // Check path with and without leading slash
+    const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+    
+    if (routes[cleanPath]) {
+        loadContent(routes[cleanPath]);
     } else if (routes[path]) {
         loadContent(routes[path]);
-    } else if (routes[path.replace(/^\//, '')]) {
-        // Try without leading slash
-        const cleanPath = path.replace(/^\//, '');
-        loadContent(routes[cleanPath]);
     } else {
-        // fallback to Rhythm Typer home
-        history.replaceState(null, '', '/Rhythm Typer/');
-        loadContent(routes['Rhythm Typer/']);
+        // Fallback
+        loadContent('home.html'); 
     }
 }
 
