@@ -318,16 +318,14 @@ header {
 .Settings-Sidebar {
     position: fixed;
     top: 90px;
-    left: -450px;
-    width: 450px;
+    left: -540px;
+    width: 540px;
     height: calc(100vh - 90px);
     background-color: rgba(25, 25, 40, 0.336);
     backdrop-filter: blur(10px);
-    padding: 16px;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    gap: 16px;
     transition: left 0.4s cubic-bezier(0, 0, 0, 1);
     z-index: 100;
 }
@@ -337,22 +335,79 @@ header {
 }
 
 .Settings-Section-Bar {
-    width: 150px;
+    padding-top: 28px;
+    width: 80px;
     display: flex;
+    align-items: center;
     flex-direction: column;
-    gap: 8px;
+    gap: 38px;
     background-color: rgba(0, 0, 0, 0.61);
     color: white;
-
 }
 
-.Settings-Section-Bar-Item {
-    padding: 8px;
-    border-radius: 8px;
+.Settings-Section-Item img {
+    width: 34px;
+}
+
+.Settings-Section-Item {
     cursor: pointer;
+}
+
+.Settings-Section-Item:hover img {
+    filter: brightness(0) saturate(100%) 
+            invert(35%) sepia(90%) 
+            saturate(1000%) hue-rotate(260deg);
+}
+
+.Settings-List {
+    padding: 18px;
+    width: calc(100% - 120px);
+}
+.Settings-Search-Section {
+    margin-bottom: 12px;
+}
+
+.Settings-Search-Section input {
+    width: 100%;
+    height: 36px;
+    background-color: #00000000;
     color: white;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    border: none;
+    font-family: "Fredoka", sans-serif;
+    font-size: 24px;
+}
+
+.Settings-Item input[type=range] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(to right, rgba(209, 109, 207, 0.3), rgba(209, 109, 207, 0.6));
+    outline: none;
+    cursor: pointer;
+    accent-color: rgb(209, 109, 207);
+}
+
+.Settings-Section {
+    border-top: 1px solid rgba(209, 109, 207, 0.45);
+    margin-top: 14px;
+}
+
+.Settings-Section-Title {
+    font-family: "Fredoka", sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+.Settings-Item {
+    margin-top: 12px;
+    margin-bottom: 8px;
+    font-family: "Fredoka", sans-serif;
+    font-size: 18px;
+    margin: 6px 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .Settings-Overlay {

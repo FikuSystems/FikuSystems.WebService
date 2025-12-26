@@ -1,8 +1,5 @@
-// Animation configuration
-const defaultAnimDuration = 300;
-
 const routes = {
-    '': 'home.html',           // Removed the prefix
+    'Rhythm Typer/': 'home.html',           // Removed the prefix
 };
 
 // Load HTML into #content
@@ -24,65 +21,29 @@ function loadContent(page) {
         });
 }
 
-function showOptionsModal() {
-    const modal = document.getElementById('options-modal');
-    const container = document.getElementById('options-container');
-    
-    if (!modal || !container) return;
-    
-    fetch('Rhythm Typer/options.html')
-        .then(res => res.text())
-        .then(html => {
-            container.innerHTML = html;
-            modal.classList.remove('hidden');
-            
-            // Get the window element and animate it in
-            const win = container.querySelector('.window');
-            if (win) {
-                // Opening animation
-                win.style.opacity = '0';
-                win.style.transition = 'none';
-                win.style.transformOrigin = 'center';
-                win.style.transform = 'scale(0.94) perspective(1000px) rotateX(-10deg)';
-                win.getBoundingClientRect(); // force reflow
-                win.style.transition = `transform ${defaultAnimDuration}ms cubic-bezier(0.4, 0, 0.2, 1), opacity ${defaultAnimDuration}ms ease-in-out`;
-                win.style.transform = 'none';
-                win.style.opacity = '1';
-            }
+// Load sidebar on page initialization
+function loadSidebar() {
+    fetch('settingssidebar.html')
+        .then(res => {
+            if (!res.ok) throw new Error(`Could not find settingssidebar.html`);
+            return res.text();
         })
-        .catch(err => console.error('Error loading options:', err));
+        .then(html => {
+            const body = document.body;
+            const overlay = document.createElement('div');
+            overlay.id = 'settings-overlay';
+            overlay.className = 'Settings-Overlay';
+            
+            const sidebar = document.createElement('div');
+            sidebar.id = 'settings-sidebar';
+            sidebar.className = 'Settings-Sidebar';
+            sidebar.innerHTML = html;
+            
+            body.insertBefore(overlay, body.firstChild);
+            body.insertBefore(sidebar, body.firstChild);
+        })
+        .catch(err => console.error('Error loading sidebar:', err));
 }
-
-function closeOptionsModal() {
-    const modal = document.getElementById('options-modal');
-    const container = document.getElementById('options-container');
-    const win = container.querySelector('.window');
-    
-    if (win) {
-        // Closing animation
-        win.style.transition = `
-            transform ${defaultAnimDuration}ms cubic-bezier(0.4, 0, 0.2, 1),
-            opacity ${defaultAnimDuration}ms ease-out
-        `;
-        win.style.transformOrigin = 'center';
-        win.style.transform = 'scale(0.94) perspective(1000px) rotateX(6deg)';
-        win.style.opacity = '0';
-        
-        // Wait for animation to complete before hiding modal
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, defaultAnimDuration);
-    } else if (modal) {
-        modal.classList.add('hidden');
-    }
-}
-
-// Close modal when clicking the overlay
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('modal-overlay')) {
-        closeOptionsModal();
-    }
-});
 
 // Settings Sidebar Management
 function openSettingsSidebar() {
@@ -109,7 +70,7 @@ document.addEventListener('click', function(e) {
 
 // Settings button click handler
 document.addEventListener('click', function(e) {
-    if (e.target.closest('.Header-Settings')) {
+    if (e.target.closest('.Header-Settings') || e.target.closest('.Settings-Button')) {
         openSettingsSidebar();
     }
 });
@@ -155,7 +116,10 @@ function loadFromPath() {
 }
 
 // Initial load
-window.addEventListener('load', loadFromPath);
+window.addEventListener('load', () => {
+    loadSidebar();
+    loadFromPath();
+});
 
 // Back/forward buttons
 window.addEventListener('popstate', loadFromPath);
