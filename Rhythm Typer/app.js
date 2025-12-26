@@ -3,8 +3,8 @@ const defaultAnimDuration = 300;
 
 
 const routes = {
-    '/': 'home.html',
-    '/socials': 'socials.html'
+    './': 'home.html',
+    './socials': 'socials.html'
 };
 
 // Load HTML into #content
