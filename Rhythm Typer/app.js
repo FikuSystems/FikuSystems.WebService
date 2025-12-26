@@ -3,12 +3,15 @@ const defaultAnimDuration = 300;
 
 
 const routes = {
-    'Rhythm Typer/': 'home.html',
+    'Rhythm Typer/': './home.html',
+    'Rhythm Typer/socials': './socials.html'
 };
 
 // Load HTML into #content
 function loadContent(page) {
-    fetch(page)
+    // Ensure page path is relative to the Rhythm Typer directory
+    const pagePath = page.startsWith('./') ? page : './' + page;
+    fetch(pagePath)
         .then(res => {
             if (!res.ok) throw new Error('Page not found');
             return res.text();
@@ -32,7 +35,7 @@ function showOptionsModal() {
     
     if (!modal || !container) return;
     
-    fetch('options.html')
+    fetch('./options.html')
         .then(res => res.text())
         .then(html => {
             container.innerHTML = html;
@@ -133,7 +136,7 @@ function loadFromPath() {
 
     // If coming from a folder redirect with ?page= parameter
     if (pageParam) {
-        const routePath = '/' + pageParam;
+        const routePath = 'Rhythm Typer/' + pageParam;
         if (routes[routePath]) {
             loadContent(routes[routePath]);
             // Clean up the URL by removing the query parameter
@@ -142,9 +145,9 @@ function loadFromPath() {
     } else if (routes[path]) {
         loadContent(routes[path]);
     } else {
-        // fallback to V2 home
-        history.replaceState(null, '', '/');
-        loadContent(routes['/']);
+        // fallback to Rhythm Typer home
+        history.replaceState(null, '', 'Rhythm Typer/');
+        loadContent(routes['Rhythm Typer/']);
     }
 }
 

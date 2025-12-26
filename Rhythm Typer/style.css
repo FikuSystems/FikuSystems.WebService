@@ -27,7 +27,7 @@ body {
     color: white;
     font-family: "Fredoka", sans-serif;
     margin: 0;
-    background-image: url('Assets/bg1.png');
+    background-image: url('/Rhythm Typer/Assets/bg1.png');
     background-attachment: fixed;
     background-size: cover;
     background-color: rgba(0, 0, 0, 0.5);
