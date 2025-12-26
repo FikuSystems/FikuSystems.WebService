@@ -1,0 +1,333 @@
+/* Fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+
+.jetbrains-mono-500 {
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+
+.fredoka-500 {
+  font-family: "Fredoka", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+/* Page Setup */
+
+body {
+    background-color: rgb(49, 38, 75);
+    color: white;
+    font-family: "Fredoka", sans-serif;
+    margin: 0;
+    background-image: url('/Assets/bg1.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.233), rgba(0, 0, 0, 0.4));
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Header Styles */
+
+header {
+    background-image: linear-gradient(to bottom, rgba(112, 59, 129, 1), rgba(111, 59, 129, 0));
+    height: 90px;
+    display: flex;
+    flex-direction: row;
+    z-index: 1000;
+}
+
+.Header-LeftAlign {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-left: 16px;
+    flex-grow: 1;
+}
+
+.Header-RightAlign {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 10px;
+    padding-right: 16px;
+}
+
+.Header-Button {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border:rgba(209, 109, 207, 0.45) 4px solid;
+    background-color: rgba(25, 25, 40, 0.45);
+    transition: border 0.3s, background-color 0.3s;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.Header-Button:hover {
+    border:rgba(209, 109, 207, 0.75) 4px solid;
+    background-color: rgba(25, 25, 40, 0.75);
+    transition: border 0.3s, background-color 0.3s;
+    cursor: pointer;
+}
+
+.Header-Button img {
+    width: 19px;
+}
+
+.Header-Home {
+    height: 50px;
+    width: 50px;
+}
+
+.Header-Home img {
+    width: 25px;
+}
+
+.Header-PlayerGraph {
+    border-radius: 30px;
+    width: 190px;
+}
+
+.Header-PlayerGraph-Container {
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    align-items: center;    
+    gap: 8px;
+    padding: 8px 0;
+}
+
+.Header-PlayerGraph-Counter {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.Music-Player-Group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0px;
+}
+
+.Music-Player-Cover {
+    height: 50px;
+    width: 50px;
+    border-radius: 12px;
+    border:rgba(209, 109, 207, 0.45) 4px solid;
+    background-color: rgba(25, 25, 40, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Music-Player-Next {
+    height: 31px;
+    width: 31px;
+    border-radius: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border:rgba(209, 109, 207, 0.45) 4px solid;
+    border-left: 0;
+    background-color: rgba(25, 25, 40, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Music-Player-Cover img {
+    width: 18px;
+}
+
+.Music-Player-Next img {
+    width: 14px;
+}
+
+.User-Profile-Group
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    padding: 4px 4px 4px 8px;
+    margin: -4px -4px -4px -8px;
+    transition: background-color 0.2s;
+}
+
+.User-Profile-Group:hover {
+    cursor: pointer;
+    background: rgba(25, 25, 40, 0.45);
+    transition: background-color 0.2s;
+}
+
+.User-Profile-Picture {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    border:rgba(209, 109, 207, 0.45) 4px solid;
+    background-color: rgba(25, 25, 40, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.User-Profile-Rank {
+    font-family: "JetBrains Mono", monospace;
+    opacity: 0.75;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.User-Profile-Name {
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+/* Home Menu Items */
+
+.Home-Menu-Container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 120px;
+    width: 100%;
+    min-height: calc(100vh - 90px);
+}
+
+.Logo img {
+    width: 300px;
+}
+
+.Menu-Buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.Menu-Button {
+    height: 60px;
+    width: 350px;
+    border-radius: 10px;
+    border:rgba(209, 109, 207, 0.45) 0px solid;
+    border-bottom: rgba(209, 109, 207, 0.45) 4px solid;
+    background-image: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Fredoka", sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    transition: border 0.3s, background-color 0.3s;
+    cursor: pointer;
+}
+
+.Play-Button {
+    border-bottom: rgb(223, 27, 197) 4px solid;
+}
+
+.Editor-Button {
+    border-bottom: rgb(223, 115, 27) 4px solid;
+}
+
+.Settings-Button {
+    border-bottom: rgb(27, 105, 223) 4px solid;
+}
+
+.Play-Button:hover {
+    border-bottom: rgb(223, 27, 197) 6px solid;
+}
+
+.Editor-Button:hover {
+    border-bottom: rgb(223, 115, 27) 6px solid;
+}
+
+.Settings-Button:hover {
+    border-bottom: rgb(27, 105, 223) 6px solid;
+}
+
+.Menu-Button:active {
+    border-bottom: 6px;
+}
+
+/* Settings Sidebar Style */
+
+.Settings-Sidebar {
+    position: fixed;
+    top: 90px;
+    left: -450px;
+    width: 450px;
+    height: calc(100vh - 90px);
+    background-color: rgba(25, 25, 40, 0.336);
+    backdrop-filter: blur(10px);
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    transition: left 0.4s cubic-bezier(0, 0, 0, 1);
+    z-index: 100;
+}
+
+.Settings-Sidebar.open {
+    left: 0;
+}
+
+.Settings-Section-Bar {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: rgba(0, 0, 0, 0.61);
+    color: white;
+
+}
+
+.Settings-Section-Bar-Item {
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.Settings-Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    display: none;
+    z-index: 99;
+}
+
+.Settings-Overlay.open {
+    display: block;
+}

@@ -1,81 +1,10 @@
-// Theme management
-function getSystemTheme() {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
-
-function initTheme() {
-    // Check if user has a saved preference
-    const savedTheme = localStorage.getItem('theme');
-    
-    // Use saved preference, or fall back to system preference
-    const theme = savedTheme || getSystemTheme();
-    applyTheme(theme);
-}
-
-function applyTheme(theme) {
-    document.documentElement.classList.toggle('dark-theme', theme === 'dark');
-    localStorage.setItem('theme', theme);
-    updateThemeButton();
-}
-
-function toggleTheme() {
-    // Determine the new theme
-    const currentTheme = document.documentElement.classList.contains('dark-theme') ? 'dark' : 'light';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    applyTheme(newTheme);
-}
-
-function setTheme(theme) {
-    if (theme === 'system') {
-        localStorage.removeItem('theme');
-        applyTheme(getSystemTheme());
-    } else if (theme === 'light' || theme === 'dark') {
-        applyTheme(theme);
-    }
-}
-
-function updateThemeButton() {
-    const btn = document.getElementById('theme-toggle');
-    if (btn) {
-        const isDark = document.documentElement.classList.contains('dark-theme');
-        btn.textContent = isDark ? '☀️' : '🌙';
-    }
-}
-
-// Initialize theme on page load
-initTheme();
-window.addEventListener('load', updateThemeButton);
-
-// Listen for system theme changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    // Only apply system theme change if user hasn't manually set a preference
-    const hasManualPreference = localStorage.getItem('theme') !== null;
-    if (!hasManualPreference) {
-        applyTheme(e.matches ? 'dark' : 'light');
-    }
-});
-
 // Animation configuration
 const defaultAnimDuration = 300;
 
-// Helper function to await transition end
-function awaitTransitionEnd(element) {
-    return new Promise(resolve => {
-        const handler = () => {
-            element.removeEventListener('transitionend', handler);
-            resolve();
-        };
-        element.addEventListener('transitionend', handler);
-    });
-}
-
-// Routes mapping URL path → HTML file (relative to /V2/)
 
 const routes = {
-    '/V2/': 'home.html',
-    '/V2/about': 'about.html',
-    '/V2/projects': 'projects.html',
-    '/V2/socials': 'socials.html'
+    '/': 'home.html',
+    '/socials': 'socials.html'
 };
 
 // Load HTML into #content
@@ -101,6 +30,8 @@ function loadContent(page) {
 function showOptionsModal() {
     const modal = document.getElementById('options-modal');
     const container = document.getElementById('options-container');
+    
+    if (!modal || !container) return;
     
     fetch('options.html')
         .then(res => res.text())
@@ -144,16 +75,45 @@ function closeOptionsModal() {
         setTimeout(() => {
             modal.classList.add('hidden');
         }, defaultAnimDuration);
-    } else {
+    } else if (modal) {
         modal.classList.add('hidden');
     }
 }
 
 // Close modal when clicking the overlay
 document.addEventListener('click', function(e) {
-    const modal = document.getElementById('options-modal');
     if (e.target.classList.contains('modal-overlay')) {
         closeOptionsModal();
+    }
+});
+
+// Settings Sidebar Management
+function openSettingsSidebar() {
+    const sidebar = document.getElementById('settings-sidebar');
+    const overlay = document.getElementById('settings-overlay');
+    if (sidebar) sidebar.classList.add('open');
+    if (overlay) overlay.classList.add('open');
+}
+
+function closeSettingsSidebar() {
+    const sidebar = document.getElementById('settings-sidebar');
+    const overlay = document.getElementById('settings-overlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+}
+
+// Close sidebar when clicking overlay
+document.addEventListener('click', function(e) {
+    const overlay = document.getElementById('settings-overlay');
+    if (e.target === overlay) {
+        closeSettingsSidebar();
+    }
+});
+
+// Settings button click handler
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.Header-Settings')) {
+        openSettingsSidebar();
     }
 });
 
@@ -174,7 +134,7 @@ function loadFromPath() {
 
     // If coming from a folder redirect with ?page= parameter
     if (pageParam) {
-        const routePath = '/V2/' + pageParam;
+        const routePath = '/' + pageParam;
         if (routes[routePath]) {
             loadContent(routes[routePath]);
             // Clean up the URL by removing the query parameter
@@ -184,8 +144,8 @@ function loadFromPath() {
         loadContent(routes[path]);
     } else {
         // fallback to V2 home
-        history.replaceState(null, '', '/V2/');
-        loadContent(routes['/V2/']);
+        history.replaceState(null, '', '/');
+        loadContent(routes['/']);
     }
 }
 

@@ -1,0 +1,307 @@
+/* === WINDOW STYLING === */
+.window {
+  width: auto;
+  flex-direction: column;
+  min-width: 240px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-radius: 3px;
+  background: #cacaca6b;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 0 0 1px #1a1a1a3f, 0 0px 10px rgba(0, 0, 0, 0.39);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: absolute;
+  z-index: 10;
+  transition: box-shadow 0.5s;
+  transition: 0.2s;
+}
+
+.window-inactive {
+  min-width: 240px;
+  background: #6bacf659;
+  position: absolute;
+  z-index: 5;
+}
+
+/* Maximized window adjustments */
+.window.maximized {
+  border: none;
+  box-shadow: none;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  transition: 0.2s;
+    border-radius: 0px;
+}
+
+/* === TITLE BAR STYLING === */
+.window-title-bar {
+  color: #000000;
+  text-shadow: 0 0 4px #ffffff8a, 0 0 4px #ffffff8e, 0 0 6px #ffffff;
+  height: 24px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.window-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 24px;
+  line-height: 24px;        /* vertically center text */
+  font-size: 12px;
+  font-weight: 400;
+  padding: 0 4px;          /* optional padding */
+  box-sizing: border-box;
+  white-space: nowrap;       /* prevent wrapping */
+  overflow: hidden;          /* hide overflow */
+  text-overflow: ellipsis;   /* add ... for overflowed text */
+  text-align: left;          /* align text to the left */
+  pointer-events: none;
+}
+
+.window-controls {
+  display: flex;
+    font-size: 14px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* === TITLEBAR BUTTONS === */
+.window-btn-close {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  width: 47px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+  transition: background 0.1s;
+}
+
+.window-btn-close {
+  border-left: 1px solid #9b2f2f;
+  border-bottom: 1px solid #9b2f2f;
+  border-right: 1px solid #9b2f2f;
+  background-color: #c75050;
+
+}
+.window-btn-close:hover {
+  background-color: #943b3b;
+}
+
+.window-btn {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+  background-color: transparent;
+  transition: background 0.1s;
+}
+
+.window-btn:hover {
+  background-color: #5283bc73;
+}
+
+/* === ICON IMAGES === */
+.btn-close    { background-image: url('/V2/close.png'); }
+
+/* === WINDOW CONTENT === */
+.window-contentbox {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  box-shadow: 0 0 0 1px #1a1a1a3f;
+  box-sizing: border-box;
+}
+
+.window-background {
+  background: #f0f0f0;
+  font-size: 12px;
+  color: #222;
+}
+
+.window-content {
+  flex: 1 1 auto;
+  overflow: auto;
+  min-height: 0;
+  font-size: 12px;
+  background: #f0f0f0;
+  padding: 6px;
+  display: block;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.window-splitter {
+  height: 1px;
+  background: #9d9d9d;
+  width: 100%;
+  margin-top: 9px;
+  margin-bottom: 9px;
+}
+
+.window-splitter-console {
+  height: 1px;
+  background: #9d9d9d;
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 9px;
+}
+
+.window-spacer-console {
+  height: 1px;
+  background: #ffffff00;
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.window-footer {
+  flex: 0 0 auto;
+  padding: 6px;
+  border-top: 1px solid #9d9d9d;
+  background: #dcdcdc;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.window-footer-toolbar {
+  padding: 3px;
+  border-top: 1px solid #9d9d9d;
+  background: #dcdcdc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  height: 16px;
+}
+
+.window-header {
+  padding: 6px;
+  border-bottom: 1px solid #9d9d9d;
+  background: #dcdcdc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.window-banner {
+  margin: 0;
+  border: 0;
+}
+
+/* === BUTTONS === */
+.button-generic {
+  min-width: 75px;
+  margin-left: 5px;
+  padding: 0 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  height: 21px;
+background: linear-gradient(
+  to bottom,
+  rgb(242,242,242) 0%,
+  rgb(235,235,235) 50%,
+  rgb(221,221,221) 50%,
+  rgb(207,207,207) 100%
+);
+
+border: 1px solid rgb(235, 235, 235);
+box-shadow: 0px 0px 0px 1px rgb(112, 112, 112);
+color: #000;
+border-radius: 2.5px;
+  cursor: pointer;
+}
+
+.button-generic:hover {
+background: linear-gradient(
+  to bottom,
+  rgb(234,246,253) 0%,
+  rgb(217,240,252) 50%,
+  rgb(190,230,253) 50%,
+  rgb(167,217,245) 100%
+);
+
+border: 1px solid rgb(44, 206, 248);
+box-shadow: 0px 0px 0px 1px rgb(60,127,177);
+color: #000;
+
+  padding: 0 10px;
+}
+
+.button-generic:active {
+background: linear-gradient(
+  to bottom,
+  rgb(227, 241, 248) 0%,
+  rgb(200, 229, 243) 55%,
+  rgb(152,209,239) 55%,
+  rgb(104,179,219) 100%
+);
+
+border: 1px solid rgb(35, 165, 197);
+box-shadow: 0px 0px 0px 1px rgb(44,98,139);
+color: #000;
+
+  padding: 0 10px;
+}
+
+
+.button-generic-icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 3px;
+  min-width: 75px;
+  margin-left: 5px;
+  padding: 0 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  height: 23px;
+  border: 1px solid #a0a0a0;
+  background: linear-gradient(180deg, #f5f5f5 0%, #e8e8e8 50%, #d9d9d9 100%);
+  color: black;
+  cursor: pointer;
+}
+
+.button-icon {
+  height: 16px;
+  width: 16px;
+  margin-right: 6px;
+}
+
+.button-generic-icon:hover {
+  border: 2px solid #4d92e1;
+  padding: 0 9px;
+}
+
+.button-generic-icon:active {
+  border: 1px solid #4d92e1;
+  padding: 0 10px;
+  background: linear-gradient(180deg, #d4d4d4 0%, #c8c8c8 50%, #b8b8b8 100%);
+}
+
+.input-generic {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  height: 20px;
+  border: 1px solid #cacaca;
+  padding: 2px;
+  box-sizing: border-box;
+}

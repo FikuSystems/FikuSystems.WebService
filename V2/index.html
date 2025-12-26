@@ -9,7 +9,6 @@
     <link rel="icon" type="image/x-icon" href="/V2/favicon.ico">
     <link rel="stylesheet" href="/V2/style.css">
 </head>
-
 <body>
     <main>
     <nav>
@@ -30,10 +29,21 @@
                     Socials
                 </a>
             </li>
+            <li>
+                <a href="#" onclick="event.preventDefault(); showOptionsModal();">
+                    Options
+                </a>
+            </li>
         </ul>
     </nav>
 
     <div id="content"></div>
+
+    <!-- Options Modal -->
+    <div id="options-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div id="options-container"></div>
+    </div>
 
     <script src="/V2/app.js"></script>
 </main>

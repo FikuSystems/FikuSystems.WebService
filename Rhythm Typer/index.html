@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>rhythm typer</title>
+
+    <!-- Paths must be absolute from root -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="Header-LeftAlign">
+            <div class="Header-Home Header-Button"><img src="Assets/HomeIcon@2x.png"></div>
+            <div class="Header-Settings Header-Button"><img src="Assets/SettingsIcon@2x.png"></div>
+            <div class="Header-Fullscreen Header-Button"><img src="Assets/Fullscreen@2x.png"></div>
+            <div class="Header-PlayerGraph Header-Button">
+                <div class="Header-PlayerGraph-Container">
+                    <img src="Assets/Graph@2x.png">
+                    <div class="Header-PlayerGraph-Counter">54</div>
+                    <div>Players Online</div>
+                </div>
+            </div>
+        </div>
+        <div class="Header-RightAlign">
+            <div class="User-Profile-Group">
+                <div style="display: flex; flex-direction: column; align-items: end;">
+                    <div class="User-Profile-Name">ALongUserName</div>
+                    <div class="User-Profile-Rank">#824</div>
+                </div>
+                <div class="User-Profile-Picture">?</div>
+            </div>
+            <div class="Music-Player-Group">
+                <div class="Music-Player-Cover"><img src="Assets/Note@2x.png"></div>
+                <div class="Music-Player-Next"><img src="Assets/NextTrack@2x.png"></div>
+            </div>
+            <div class="Header-Typemap-Listing Header-Button"><img src="Assets/Listing@2x.png"></div>
+            <div class="Header-Rankings Header-Button"><img src="Assets/Ranking@2x.png"></div>
+        </div>
+
+    </header>
+    <main>
+        <div id="settings-overlay" class="Settings-Overlay"></div>
+        <div id="settings-sidebar" class="Settings-Sidebar">
+            <div class="Settings-Section-Bar">
+                <div class="Settings-Section-Item Section-Gameplay"> </div>
+                <div class="Settings-Section-Item Section-Audio"> </div>
+                <div class="Settings-Section-Item Section-Skin"> </div>
+                <div class="Settings-Section-Item Section-Hardware-Keyboard"> </div>
+                <div class="Settings-Section-Item Section-Gameplay-Keyboard"> </div>
+                <div class="Settings-Section-Item Section-Experimental"> </div>
+            </div>
+            <div class="Settings-List">
+                <div class="Settings-Search-Section"></div>
+                <div class="Settings-Section">
+                    <div class="Settings-Section-Title">Gameplay</div>
+                    <div class="Settings-Item">Approach Rate
+                        <div class="slidecontainer">
+                            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                        </div>
+                    </div>
+                    <div class="Settings-Item">Reverse Approach Circles
+
+                    </div>
+                    <div class="Settings-Item">Key Shape
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content"></div>
+        <script src="/app.js"></script>
+    </main>
+
+</body>
+
+</html>
