@@ -2,7 +2,7 @@
 const defaultAnimDuration = 300;
 
 const routes = {
-    'Rhythm Typer/': 'home.html',           // Removed the prefix
+    '': 'home.html',           // Removed the prefix
 };
 
 // Load HTML into #content
