@@ -3,8 +3,7 @@ const defaultAnimDuration = 300;
 
 
 const routes = {
-    './': 'home.html',
-    './socials': 'socials.html'
+    'Rhythm Typer/': 'home.html',
 };
 
 // Load HTML into #content
