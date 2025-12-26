@@ -1,10 +1,8 @@
 // Animation configuration
 const defaultAnimDuration = 300;
 
-
 const routes = {
-    'Rhythm Typer/': 'home.html', // If app.js is inside the Rhythm Typer folder
-    'Rhythm Typer/socials': 'socials.html'
+    'Rhythm Typer/': 'home.html',           // Removed the prefix
 };
 
 // Load HTML into #content
@@ -127,30 +125,19 @@ function navigateTo(path) {
 
 // Load page based on URL or query parameter
 function loadFromPath() {
-    // decodeURIComponent converts %20 back into a space so it matches your keys
+    // Ensure we decode the URI to handle the %20 (spaces) correctly
     const path = decodeURIComponent(window.location.pathname);
-    const params = new URLSearchParams(window.location.search);
-    const pageParam = params.get('page');
-
-    if (pageParam) {
-        const routePath = 'Rhythm Typer/' + pageParam;
-        if (routes[routePath]) {
-            loadContent(routes[routePath]);
-            history.replaceState(null, '', '/' + routePath);
-            return;
-        }
-    }
-
-    // Check path with and without leading slash
-    const cleanPath = path.startsWith('/') ? path.substring(1) : path;
     
-    if (routes[cleanPath]) {
-        loadContent(routes[cleanPath]);
-    } else if (routes[path]) {
+    // Check if path ends without a slash and add it if it's the base directory
+    const normalizedPath = path.endsWith('/') ? path : path + '/';
+
+    if (routes[path]) {
         loadContent(routes[path]);
+    } else if (routes[normalizedPath]) {
+        loadContent(routes[normalizedPath]);
     } else {
-        // Fallback
-        loadContent('home.html'); 
+        // Fallback for the root of Rhythm Typer
+        loadContent('/Rhythm Typer/home.html');
     }
 }
 
