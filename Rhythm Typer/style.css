@@ -275,6 +275,44 @@ header {
     border-bottom: 6px;
 }
 
+.Socials {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+.Social-Button {
+    height: 40px;
+    width: 40px;
+    border-radius: 8px;
+    background-image: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.3));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Social-Button img {
+    width: 24px;
+    margin: 8px;
+}
+
+.Social-Discord:hover {
+    cursor: pointer;
+    background-image: linear-gradient(rgba(88, 101, 242, 0), rgba(88, 101, 242, 0.5));
+}
+
+.Social-Reddit:hover {
+    cursor: pointer;
+    background-image: linear-gradient(rgba(255, 69, 0, 0), rgba(255, 69, 0, 0.5));
+}
+
+.Social-YouTube:hover {
+    cursor: pointer;
+    background-image: linear-gradient(rgba(255, 0, 0, 0), rgba(255, 0, 0, 0.5));
+}
+
 /* Settings Sidebar Style */
 
 .Settings-Sidebar {
