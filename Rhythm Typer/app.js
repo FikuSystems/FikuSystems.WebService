@@ -3,8 +3,8 @@ const defaultAnimDuration = 300;
 
 
 const routes = {
-    'Rhythm Typer/': 'home.html',
-    'Rhythm Typer/socials': 'socials.html'
+    'Rhythm Typer/': 'Rhythm Typer/home.html',
+    'Rhythm Typer/socials': 'Rhythm Typer/socials.html'
 };
 
 // Load HTML into #content
@@ -23,7 +23,7 @@ function loadContent(page) {
         .catch(err => {
             console.error(err);
             document.getElementById('content').innerHTML =
-                '<p>Error loading page.</p>';
+                '<h1>Error loading page.</h1>';
         });
 }
 
@@ -33,7 +33,7 @@ function showOptionsModal() {
     
     if (!modal || !container) return;
     
-    fetch('options.html')
+    fetch('Rhythm Typer/options.html')
         .then(res => res.text())
         .then(html => {
             container.innerHTML = html;
@@ -122,7 +122,7 @@ function navigateTo(path) {
     const page = routes[path];
     if (page) {
         loadContent(page);
-        history.pushState(null, '', path);
+        history.pushState(null, '', '/' + path);
     }
 }
 
@@ -138,13 +138,17 @@ function loadFromPath() {
         if (routes[routePath]) {
             loadContent(routes[routePath]);
             // Clean up the URL by removing the query parameter
-            history.replaceState(null, '', routePath);
+            history.replaceState(null, '', '/' + routePath);
         }
     } else if (routes[path]) {
         loadContent(routes[path]);
+    } else if (routes[path.replace(/^\//, '')]) {
+        // Try without leading slash
+        const cleanPath = path.replace(/^\//, '');
+        loadContent(routes[cleanPath]);
     } else {
         // fallback to Rhythm Typer home
-        history.replaceState(null, '', 'Rhythm Typer/');
+        history.replaceState(null, '', '/Rhythm Typer/');
         loadContent(routes['Rhythm Typer/']);
     }
 }
