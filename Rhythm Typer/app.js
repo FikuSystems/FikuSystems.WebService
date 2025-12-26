@@ -3,15 +3,13 @@ const defaultAnimDuration = 300;
 
 
 const routes = {
-    'Rhythm Typer/': './home.html',
-    'Rhythm Typer/socials': './socials.html'
+    'Rhythm Typer/': 'home.html',
+    'Rhythm Typer/socials': 'socials.html'
 };
 
 // Load HTML into #content
 function loadContent(page) {
-    // Ensure page path is relative to the Rhythm Typer directory
-    const pagePath = page.startsWith('./') ? page : './' + page;
-    fetch(pagePath)
+    fetch(page)
         .then(res => {
             if (!res.ok) throw new Error('Page not found');
             return res.text();
@@ -35,7 +33,7 @@ function showOptionsModal() {
     
     if (!modal || !container) return;
     
-    fetch('./options.html')
+    fetch('options.html')
         .then(res => res.text())
         .then(html => {
             container.innerHTML = html;
