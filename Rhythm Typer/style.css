@@ -377,16 +377,6 @@ header {
     font-size: 24px;
 }
 
-.Settings-Item input[type=range] {
-    width: 100%;
-    height: 8px;
-    border-radius: 4px;
-    background: linear-gradient(to right, rgba(209, 109, 207, 0.3), rgba(209, 109, 207, 0.6));
-    outline: none;
-    cursor: pointer;
-    accent-color: rgb(209, 109, 207);
-}
-
 .Settings-Section {
     border-top: 1px solid rgba(209, 109, 207, 0.45);
     margin-top: 14px;
@@ -401,13 +391,128 @@ header {
 }
 
 .Settings-Item {
+    gap: 8px;
+    margin-top: 12px;
+    padding-bottom: 8px;
+    font-family: "Fredoka", sans-serif;
+    font-size: 18px;
+    margin: 6px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.Settings-Item-Row {
+    margin-top: 12px;
     margin-top: 12px;
     margin-bottom: 8px;
     font-family: "Fredoka", sans-serif;
     font-size: 18px;
     margin: 6px 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+/* Base Slider Styling */
+.Settings-Input-Range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 16px;
+    background: linear-gradient(
+        to bottom, 
+        transparent 0%, 
+        transparent 6px, 
+        rgba(255, 255, 255, 0.2) 6px, 
+        rgba(255, 255, 255, 0.2) 10px, 
+        transparent 10px, 
+        transparent 100%
+    );
+    border-radius: 10px;
+    outline: none;
+    overflow: hidden; 
+}
+
+/* --- WEBKIT (Chrome, Safari, Edge) --- */
+ 
+.Settings-Input-Range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #7a3398;
+    cursor: pointer;
+    border: none;
+    /* The Fill Trick: Creates a massive shadow to the left of the thumb */
+    box-shadow: -100vw 0 0 99.5vw #8e44ad; 
+}
+
+/* --- FIREFOX --- */
+
+.Settings-Input-Range::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #7a3398;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.Settings-Input-Range::-moz-range-progress {
+    background-color: #8e44ad;
+    height: 8px; 
+}
+
+/* Ensure the label acts as a container for the toggle */
+.Settings-Toggle {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+    cursor: pointer;
+}
+
+/* Keep the checkbox hidden */
+.Settings-Input-Checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+/* The switch track (Your original slider CSS) */
+.Settings-Input-Checkbox-Slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #8d44ad53;
+    border-radius: 12px;
+    transition: background 0.25s ease;
+}
+
+/* The switch knob */
+.Settings-Input-Checkbox-Slider::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.25s ease;
+}
+
+/* Checked state: Logic remains the same using the + selector */
+.Settings-Input-Checkbox:checked + .Settings-Input-Checkbox-Slider {
+    background-color: #8e44ad;
+}
+
+.Settings-Input-Checkbox:checked + .Settings-Input-Checkbox-Slider::before {
+    transform: translateX(22px);
 }
 
 .Settings-Overlay {
