@@ -1,5 +1,8 @@
 const routes = {
-    'Rhythm Typer/': 'home.html',           // Removed the prefix
+    'Rhythm Typer/': 'home.html',
+    'Rhythm Typer/#play': 'home-play.html',
+    'Rhythm Typer/Song Select': 'songselect.html',
+    'Rhythm Typer/Editor': 'editor.html'
 };
 
 // Load HTML into #content
@@ -74,6 +77,52 @@ document.addEventListener('click', function(e) {
         openSettingsSidebar();
     }
 });
+
+// Home button click handler
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.Header-Home')) {
+        goToHome();
+    }
+});
+
+function goToHome() {
+    navigateTo('Rhythm Typer/');
+}
+
+// Play button click handler
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.Play-Button')) {
+        goToPlayMenu();
+    }
+});
+
+function goToPlayMenu() {
+    navigateTo('Rhythm Typer/#play');
+}
+
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.Single-Player-Button')) {
+        goToSongSelect();
+    }
+});
+
+function goToSongSelect() {
+    // This matches the key in the 'routes' object
+    navigateTo('Rhythm Typer/Song Select');
+}
+
+// Editor button click handler
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.Editor-Button')) {
+        goToEditor();
+    }
+});
+
+function goToEditor() {
+    // This matches the key in the 'routes' object
+    navigateTo('Rhythm Typer/Editor');
+}
+
 
 // Navigate programmatically
 function navigateTo(path) {
