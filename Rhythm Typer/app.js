@@ -7,7 +7,6 @@ const routes = {
 
 // Load HTML into #content
 function loadContent(page) {
-    // Use a path relative to the site root if possible, or adjust based on folder
     fetch(page)
         .then(res => {
             if (!res.ok) throw new Error(`Could not find ${page}`);
@@ -16,7 +15,6 @@ function loadContent(page) {
         .then(html => {
             const contentDiv = document.getElementById('content');
             contentDiv.innerHTML = html;
-            // ... rest of your logic
         })
         .catch(err => {
             console.error(err);
@@ -24,57 +22,74 @@ function loadContent(page) {
         });
 }
 
-// Load sidebar on page initialization
-function loadSidebar() {
-    fetch('settingssidebar.html')
+// Load Settings Modal (Popup) on page initialization
+function loadSettingsModal() {
+    // UPDATED: Loading v2 file
+    fetch('settingssidebarv2.html')
         .then(res => {
-            if (!res.ok) throw new Error(`Could not find settingssidebar.html`);
+            if (!res.ok) throw new Error(`Could not find settingssidebarv2.html`);
             return res.text();
         })
         .then(html => {
             const body = document.body;
+            
+            // Create Overlay
             const overlay = document.createElement('div');
             overlay.id = 'settings-overlay';
             overlay.className = 'Settings-Overlay';
             
-            const sidebar = document.createElement('div');
-            sidebar.id = 'settings-sidebar';
-            sidebar.className = 'Settings-Sidebar';
-            sidebar.innerHTML = html;
+            // Create Modal Container (Renamed from Sidebar)
+            const modal = document.createElement('div');
+            modal.id = 'settings-modal'; 
+            // CHANGE THIS LINE:
+            modal.className = 'SettingsPopup'; // Matches your new CSS
+            modal.innerHTML = html;
             
+            // Insert into DOM
             body.insertBefore(overlay, body.firstChild);
-            body.insertBefore(sidebar, body.firstChild);
+            body.insertBefore(modal, body.firstChild);
         })
-        .catch(err => console.error('Error loading sidebar:', err));
+        .catch(err => console.error('Error loading settings modal:', err));
 }
 
-// Settings Sidebar Management
-function openSettingsSidebar() {
-    const sidebar = document.getElementById('settings-sidebar');
+// Settings Modal Management
+function openSettingsModal() {
+    const modal = document.getElementById('settings-modal');
     const overlay = document.getElementById('settings-overlay');
-    if (sidebar) sidebar.classList.add('open');
+    
+    // Add 'open' class to make them visible
+    if (modal) modal.classList.add('open');
     if (overlay) overlay.classList.add('open');
 }
 
-function closeSettingsSidebar() {
-    const sidebar = document.getElementById('settings-sidebar');
+function closeSettingsModal() {
+    const modal = document.getElementById('settings-modal');
     const overlay = document.getElementById('settings-overlay');
-    if (sidebar) sidebar.classList.remove('open');
+    
+    if (modal) {
+        modal.classList.remove('open');
+        modal.classList.add('closing');
+        
+        setTimeout(() => {
+            modal.classList.remove('closing');
+        }, 300); 
+    }
+
     if (overlay) overlay.classList.remove('open');
 }
 
-// Close sidebar when clicking overlay
+// Close modal when clicking overlay
 document.addEventListener('click', function(e) {
     const overlay = document.getElementById('settings-overlay');
     if (e.target === overlay) {
-        closeSettingsSidebar();
+        closeSettingsModal();
     }
 });
 
 // Settings button click handler
 document.addEventListener('click', function(e) {
     if (e.target.closest('.Header-Settings') || e.target.closest('.Settings-Button')) {
-        openSettingsSidebar();
+        openSettingsModal();
     }
 });
 
@@ -107,7 +122,6 @@ document.addEventListener('click', function(e) {
 });
 
 function goToSongSelect() {
-    // This matches the key in the 'routes' object
     navigateTo('Rhythm Typer/Song Select');
 }
 
@@ -119,10 +133,8 @@ document.addEventListener('click', function(e) {
 });
 
 function goToEditor() {
-    // This matches the key in the 'routes' object
     navigateTo('Rhythm Typer/Editor');
 }
-
 
 // Navigate programmatically
 function navigateTo(path) {
@@ -135,7 +147,6 @@ function navigateTo(path) {
 
 // Load page based on URL or query parameter
 function loadFromPath() {
-    // This converts "%20" back to a space so it matches your keys
     const rawPath = window.location.pathname;
     const path = decodeURIComponent(rawPath);
     
@@ -151,7 +162,6 @@ function loadFromPath() {
         }
     }
 
-    // Clean up path: remove leading slash for matching
     const cleanPath = path.startsWith('/') ? path.substring(1) : path;
     
     if (routes[cleanPath]) {
@@ -159,14 +169,13 @@ function loadFromPath() {
     } else if (routes[path]) {
         loadContent(routes[path]);
     } else {
-        // Fallback: If nothing matches, just load home.html
         loadContent('home.html');
     }
 }
 
 // Initial load
 window.addEventListener('load', () => {
-    loadSidebar();
+    loadSettingsModal(); // Renamed function call
     loadFromPath();
 });
 
