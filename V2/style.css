@@ -11,7 +11,7 @@
     --text-secondary: #666666;
     --nav-bg: #333;
     --nav-text: white;
-    --accent-primary: rgba(92, 0, 145, 0.466);
+    --accent-primary: rgba(162, 0, 255, 0.466);
     --border-color: #ddd;
 }
 
@@ -22,9 +22,9 @@
     --bg-tertiary: #2a2a2a;
     --text-primary: #ffffff;
     --text-secondary: #b0b0b0;
-    --nav-bg: #1a1a1a;
+    --nav-bg: #62269d;
     --nav-text: #ffffff;
-    --accent-primary: rgba(200, 100, 255, 0.6);
+    --accent-primary: #ebc7ff;
     --border-color: #444;
 }
 
@@ -43,11 +43,19 @@ body {
 
 main {
     max-width: 900px;
-    margin: 0 auto;       /* centers horizontally */
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     margin-top: 40px;
     padding-bottom: 10px; /* space for footer */
+}
+
+.content {
+    margin: 0 20px;
+}
+
+a {
+    color: var(--accent-primary);
 }
 
 /* -------------- */

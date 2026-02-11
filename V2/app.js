@@ -1,15 +1,6 @@
-// Theme management
+// --- Theme Management ---
 function getSystemTheme() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
-
-function initTheme() {
-    // Check if user has a saved preference
-    const savedTheme = localStorage.getItem('theme');
-    
-    // Use saved preference, or fall back to system preference
-    const theme = savedTheme || getSystemTheme();
-    applyTheme(theme);
 }
 
 function applyTheme(theme) {
@@ -18,20 +9,15 @@ function applyTheme(theme) {
     updateThemeButton();
 }
 
-function toggleTheme() {
-    // Determine the new theme
-    const currentTheme = document.documentElement.classList.contains('dark-theme') ? 'dark' : 'light';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    applyTheme(newTheme);
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const theme = savedTheme || getSystemTheme();
+    applyTheme(theme);
 }
 
-function setTheme(theme) {
-    if (theme === 'system') {
-        localStorage.removeItem('theme');
-        applyTheme(getSystemTheme());
-    } else if (theme === 'light' || theme === 'dark') {
-        applyTheme(theme);
-    }
+function toggleTheme() {
+    const currentTheme = document.documentElement.classList.contains('dark-theme') ? 'dark' : 'light';
+    applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
 }
 
 function updateThemeButton() {
@@ -42,62 +28,72 @@ function updateThemeButton() {
     }
 }
 
-// Initialize theme on page load
-initTheme();
-window.addEventListener('load', updateThemeButton);
-
-// Listen for system theme changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    // Only apply system theme change if user hasn't manually set a preference
-    const hasManualPreference = localStorage.getItem('theme') !== null;
-    if (!hasManualPreference) {
-        applyTheme(e.matches ? 'dark' : 'light');
-    }
-});
-
-// Animation configuration
-const defaultAnimDuration = 300;
-
-// Helper function to await transition end
-function awaitTransitionEnd(element) {
-    return new Promise(resolve => {
-        const handler = () => {
-            element.removeEventListener('transitionend', handler);
-            resolve();
-        };
-        element.addEventListener('transitionend', handler);
-    });
-}
-
-// Routes mapping URL path → HTML file (relative to /V2/)
-
+// --- Navigation Configuration ---
 const routes = {
-    '/V2/': 'home.html',
-    '/V2/about': 'about.html',
-    '/V2/projects': 'projects.html',
-    '/V2/socials': 'socials.html'
+    '/V2/': 'pg-home.html',
+    '/V2/about': 'pg-about.html',
+    '/V2/projects': 'pg-projects.html',
+    '/V2/socials': 'pg-socials.html'
 };
 
-// Load HTML into #content
-function loadContent(page) {
-    fetch(page)
+const defaultAnimDuration = 300;
+
+// --- Core Navigation Logic ---
+function loadContent(pagePath) {
+    const contentDiv = document.getElementById('content');
+    
+    fetch(pagePath)
         .then(res => {
             if (!res.ok) throw new Error('Page not found');
             return res.text();
         })
         .then(html => {
-            const contentDiv = document.getElementById('content');
             contentDiv.innerHTML = html;
-            contentDiv.style.display = 'block';
-            contentDiv.style.minHeight = 'auto';
+            window.scrollTo(0, 0); // Reset scroll to top
+            updateThemeButton();   // Ensure icons match current theme
         })
         .catch(err => {
-            console.error(err);
-            document.getElementById('content').innerHTML =
-                '<p>Error loading page.</p>';
+            console.error('Navigation Error:', err);
+            contentDiv.innerHTML = '<div class="error-msg"><h2>404</h2><p>Page not found.</p></div>';
         });
 }
 
+function navigateTo(path) {
+    const page = routes[path];
+    if (page && window.location.pathname !== path) {
+        history.pushState({ path }, '', path);
+        loadContent(page);
+    }
+}
+
+function loadFromPath() {
+    const params = new URLSearchParams(window.location.search);
+    const pageParam = params.get('page');
+    const path = window.location.pathname;
+
+    // 1. Handle the redirect parameter (e.g., ?page=socials)
+    if (pageParam) {
+        const routePath = '/V2/' + pageParam;
+        if (routes[routePath]) {
+            // Update URL to look clean (/V2/socials) without reloading
+            history.replaceState({ path: routePath }, '', routePath);
+            loadContent(routes[routePath]);
+            return; // Exit early, we handled it
+        }
+    }
+
+    // 2. Handle direct path or fallback
+    const page = routes[path] || routes['/V2/'];
+    
+    // If we are on a weird path that isn't in routes, reset to home
+    if (!routes[path]) {
+        history.replaceState({ path: '/V2/' }, '', '/V2/');
+    }
+    
+    loadContent(page);
+}
+
+// --- Modal Logic ---
 function showOptionsModal() {
     const modal = document.getElementById('options-modal');
     const container = document.getElementById('options-container');
@@ -108,89 +104,64 @@ function showOptionsModal() {
             container.innerHTML = html;
             modal.classList.remove('hidden');
             
-            // Get the window element and animate it in
             const win = container.querySelector('.window');
             if (win) {
-                // Opening animation
                 win.style.opacity = '0';
-                win.style.transition = 'none';
-                win.style.transformOrigin = 'center';
                 win.style.transform = 'scale(0.94) perspective(1000px) rotateX(-10deg)';
-                win.getBoundingClientRect(); // force reflow
+                win.getBoundingClientRect(); // Force reflow
                 win.style.transition = `transform ${defaultAnimDuration}ms cubic-bezier(0.4, 0, 0.2, 1), opacity ${defaultAnimDuration}ms ease-in-out`;
                 win.style.transform = 'none';
                 win.style.opacity = '1';
             }
-        })
-        .catch(err => console.error('Error loading options:', err));
+        });
 }
 
 function closeOptionsModal() {
     const modal = document.getElementById('options-modal');
-    const container = document.getElementById('options-container');
-    const win = container.querySelector('.window');
+    const win = modal.querySelector('.window');
     
     if (win) {
-        // Closing animation
-        win.style.transition = `
-            transform ${defaultAnimDuration}ms cubic-bezier(0.4, 0, 0.2, 1),
-            opacity ${defaultAnimDuration}ms ease-out
-        `;
-        win.style.transformOrigin = 'center';
         win.style.transform = 'scale(0.94) perspective(1000px) rotateX(6deg)';
         win.style.opacity = '0';
-        
-        // Wait for animation to complete before hiding modal
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, defaultAnimDuration);
+        setTimeout(() => modal.classList.add('hidden'), defaultAnimDuration);
     } else {
         modal.classList.add('hidden');
     }
 }
 
-// Close modal when clicking the overlay
-document.addEventListener('click', function(e) {
-    const modal = document.getElementById('options-modal');
+// --- Event Listeners ---
+
+// 1. Initialize on Load
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    loadFromPath();
+});
+
+// 2. Global Link Interceptor (Handles all <a> tags automatically)
+document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (link) {
+        const href = link.getAttribute('href');
+        if (routes[href]) {
+            e.preventDefault();
+            navigateTo(href);
+        }
+    }
+    
+    // Handle modal overlay clicks
     if (e.target.classList.contains('modal-overlay')) {
         closeOptionsModal();
     }
 });
 
-// Navigate programmatically
-function navigateTo(path) {
-    const page = routes[path];
-    if (page) {
-        loadContent(page);
-        history.pushState(null, '', path);
+// 3. Handle Browser Back/Forward
+window.addEventListener('popstate', (e) => {
+    loadFromPath();
+});
+
+// 4. Handle System Theme Changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
     }
-}
-
-// Load page based on URL or query parameter
-function loadFromPath() {
-    const params = new URLSearchParams(window.location.search);
-    const pageParam = params.get('page');
-    const path = window.location.pathname;
-
-    // If coming from a folder redirect with ?page= parameter
-    if (pageParam) {
-        const routePath = '/V2/' + pageParam;
-        if (routes[routePath]) {
-            loadContent(routes[routePath]);
-            // Clean up the URL by removing the query parameter
-            history.replaceState(null, '', routePath);
-        }
-    } else if (routes[path]) {
-        loadContent(routes[path]);
-    } else {
-        // fallback to V2 home
-        history.replaceState(null, '', '/V2/');
-        loadContent(routes['/V2/']);
-    }
-}
-
-// Initial load
-window.addEventListener('load', loadFromPath);
-
-// Back/forward buttons
-window.addEventListener('popstate', loadFromPath);
+});
